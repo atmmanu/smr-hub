@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function AuthError() { return <main className="max-w-lg mx-auto px-6 py-20"><h1 className="text-2xl font-semibold">No se ha podido confirmar la cuenta</h1><p className="muted my-6">El enlace puede haber caducado o haber sido utilizado. Intenta iniciar sesión; si la cuenta no está confirmada, solicita un nuevo correo registrándote de nuevo.</p><Link className="primary" href="/login">Volver al inicio de sesión</Link></main>; }
