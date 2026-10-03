@@ -1,17 +1,21 @@
 ﻿# SMR HUB
 
-Tu espacio de estudio para Sistemas Microinformáticos y Redes. Versión 0.1: herramientas públicas y un área personal con tareas, exámenes y enlaces sincronizados en Supabase.
+El espacio de 1ºD de Sistemas Microinformáticos y Redes. Versión 0.2: tareas, exámenes, herramientas y recursos de clase en un solo sitio, con datos personales sincronizados en Supabase.
 
 ## Qué incluye
 
 - Registro, confirmación por correo, inicio y cierre de sesión con Supabase Auth.
 - Dashboard con saludo, tareas pendientes, próximos exámenes y accesos rápidos.
 - Crear, editar, completar y eliminar tareas; crear, editar y eliminar exámenes y enlaces.
-- Conversor de bases, almacenamiento decimal/binario y calculadora IPv4.
+- Conversor de bases, almacenamiento decimal/binario y calculadoras IPv4 e IPv6.
 - Diseño oscuro con navegación adaptable a ordenador y móvil.
-- Roles `user` y `admin` preparados. Grupos, contenido compartido, moderación y panel de administración quedan para versiones posteriores.
+- Roles `user` y `admin` preparados. La aplicación pertenece exclusivamente a 1ºD SMR; no tiene selector de clase ni grupos.
 
-Las asignaturas forman un listado inicial; utiliza «Otra» si una materia no aparece. No se gestionan materias personalizadas en esta versión.
+Las asignaturas son fijas y se definen una sola vez en `src/lib/data.ts`: Redes Locales, Montaje y Mantenimiento, Sistemas Operativos Monopuesto (SOM), Aplicaciones Ofimáticas, Itinerario para la Empleabilidad (IPE) y Programación en Python.
+
+La actualización 0.2 no requiere cambios en Supabase, migraciones ni modificaciones de RLS. Los registros existentes conservan sus datos; al editar una tarea o examen con una asignatura anterior, debes elegir una de las seis actuales para guardar. La portada solo ofrece acceso y registro; la ruta de herramientas sigue siendo pública.
+
+La calculadora IPv6 funciona localmente: acepta direcciones completas, abreviadas y notación mixta con IPv4 al final. Muestra expansión, compresión hexadecimal, red, clasificación orientativa y los bits de red y host según un prefijo de /0 a /128. No acepta identificadores de zona (`%eth0`), direcciones entre corchetes ni puertos. La clasificación por prefijo no garantiza conectividad ni asignación real; `2001:db8::/32` es un rango de documentación. Referencias: [RFC 4291](https://www.rfc-editor.org/rfc/rfc4291) y [RFC 5952](https://www.rfc-editor.org/rfc/rfc5952).
 
 ## Tecnologías y estructura
 
@@ -21,7 +25,8 @@ Next.js organiza las páginas y rutas. React construye la interfaz. TypeScript a
 src/app/                Páginas, rutas privadas, confirmación y estilos
 src/components/         Navegación, formularios y pantallas
 src/lib/supabase/       Conexiones desde navegador y servidor
-src/lib/tools.ts        Cálculos de las herramientas
+src/lib/tools.ts        Cálculos de bases, almacenamiento e IPv4
+src/lib/ipv6.ts         Cálculos y validación IPv6
 src/lib/data.ts         Tipos de datos y asignaturas
 src/proxy.ts            Renovación de la sesión
 supabase/schema.sql     Tablas, validaciones y permisos RLS
@@ -90,7 +95,7 @@ Para ser administrador, crea tu cuenta, copia tu UUID desde **Authentication →
 update public.profiles set role = 'admin' where id = 'TU-UUID';
 ```
 
-En v0.1 el rol prepara funciones futuras; no concede acceso a los datos privados de otros usuarios.
+En v0.2 el rol prepara funciones futuras; no concede acceso a los datos privados de otros usuarios.
 
 La clave **publishable** está diseñada para ser pública y sus consultas están protegidas por RLS. Nunca incluyas claves `service_role`, claves secretas `sb_secret_...`, contraseñas o tokens privados en el código, en variables `NEXT_PUBLIC_` ni en GitHub. `.env.local` y los demás `.env` se excluyen de Git; `.env.example` solo contiene los nombres.
 
@@ -112,7 +117,7 @@ Ejecuta `supabase/verify-rls.sql` en SQL Editor después del esquema: simula dos
 4. Con la primera elimina los registros y recarga para comprobarlo.
 5. Cambia tu nombre y comprueba el saludo y el menú.
 6. Cierra sesión y abre `/dashboard`: debe redirigir a `/login`.
-7. Entra desde otro dispositivo: los datos deben reaparecer. Recarga para ver cambios realizados en otra pestaña o dispositivo; no hay actualización en directo en v0.1.
+7. Entra desde otro dispositivo: los datos deben reaparecer. Recarga para ver cambios realizados en otra pestaña o dispositivo; no hay actualización en directo en v0.2.
 
 La autenticación, persistencia y RLS requieren un proyecto Supabase configurado. Compilar la web no confirma esas integraciones.
 
@@ -123,7 +128,7 @@ Git ya está inicializado y conectado a `atmmanu/smr-hub`. Estos comandos muestr
 ```powershell
 git status
 git add .
-git commit -m "Crear SMR HUB v0.1"
+git commit -m "Actualizar SMR HUB a v0.2"
 git push origin main
 ```
 
@@ -141,4 +146,4 @@ Verifica que `.env.local` no aparece en `git status` antes de preparar archivos.
 
 Se puede empezar con 0 € usando Supabase Free y Vercel Hobby dentro de sus cuotas. Hobby permite uso personal no comercial. Supabase puede pausar proyectos gratuitos con baja actividad durante siete días; se reactivan desde su panel. Revisa las condiciones actuales en https://vercel.com/docs/plans/hobby y https://supabase.com/pricing, además de las del proveedor SMTP. Mantén los planes gratuitos; no se incluyen compras, dominio propio ni servicios de pago automáticos.
 
-La creación de cuentas y del proyecto Supabase, ejecución del SQL, configuración del correo y despliegue necesitan acciones tuyas. El proyecto local no está publicado ni conectado automáticamente a una base de datos real.
+Los pasos de creación de cuentas, SQL y correo son para la primera instalación. Si ya tienes la versión 0.1 funcionando en producción, la 0.2 reutiliza el mismo proyecto Supabase y sus variables: no vuelvas a ejecutar el esquema. Revisa los cambios locales antes de hacer commit, push o desplegar.

@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { Brand } from "@/components/brand";
 import { Icon } from "@/components/icon";
+import { subjects } from "@/lib/data";
 
 export default function Home() {
-  return <div className="mx-auto max-w-6xl px-6">
-    <header className="flex items-center justify-between border-b border-[#223047] py-6"><Brand/><nav className="flex gap-3"><Link className="secondary" href="/login">Entrar</Link><Link className="primary hidden sm:inline-flex" href="/registro">Crear cuenta <Icon name="arrow"/></Link></nav></header>
-    <main>
-      <section className="grid items-center gap-12 py-20 lg:grid-cols-[1.2fr_1fr] lg:py-28">
-        <div><p className="eyebrow mb-6">Tu próximo paso empieza aquí</p><h1 className="text-5xl font-bold tracking-tight leading-[1.1] sm:text-6xl">Todo tu SMR.<br/><span className="text-brand">En un mismo sitio.</span></h1><p className="muted mt-7 max-w-lg text-lg leading-8">Menos pestañas, más foco. Organiza tus tareas y exámenes, guarda tus enlaces y ten a mano las herramientas que necesitas en clase.</p><div className="mt-8 flex flex-wrap gap-3"><Link href="/registro" className="primary">Crear mi espacio <Icon name="arrow"/></Link><Link href="/herramientas" className="secondary">Explorar herramientas</Link></div><p className="muted mt-5 text-sm">Gratis · Desde cualquier dispositivo · Pensado para SMR</p></div>
-        <div className="panel relative overflow-hidden !p-8"><div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-blue-500/10 blur-3xl"/><div className="flex items-center justify-between"><span className="eyebrow">Tu centro de operaciones</span><span className="rounded-full bg-blue-400/10 px-3 py-1 text-xs text-brand">v0.1</span></div><h2 className="mt-8 text-2xl font-semibold">Prepárate para lo que viene.</h2><p className="muted mt-2 text-sm">Un espacio personal que te acompaña dentro y fuera del aula.</p><div className="mt-8 space-y-4">{[["tasks","Planifica tu semana","Tareas y fechas, sin perder el hilo."],["exams","Llega preparado","Tus próximos exámenes a la vista."],["tools","Resuelve y aprende","Conversiones y redes, al instante."]].map(([icon,title,description]) => <div key={title} className="flex gap-4 rounded-xl border border-[#26364e] bg-[#0e1726] p-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-blue-400/10 text-brand"><Icon name={icon}/></span><div><h3 className="font-medium">{title}</h3><p className="muted mt-1 text-sm">{description}</p></div></div>)}</div></div>
-      </section>
-      <section className="pb-20"><div className="mb-7 flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow mb-3">Abiertas para todos</p><h2 className="text-2xl font-semibold">Herramientas para el día a día</h2></div><Link href="/herramientas" className="text-brand text-sm">Sin cuenta ni instalaciones →</Link></div><div className="grid gap-5 md:grid-cols-3">{[["01","Conversor de bases","De binario a decimal y hexadecimal. Sin complicaciones."],["02","Almacenamiento","Bits, bytes y sus múltiplos. Elige la base adecuada."],["03","Calculadora IPv4","Red, máscara y hosts. Entiende tu subred."]].map(([number,title,description]) => <Link key={number} href="/herramientas" className="panel transition-colors hover:border-blue-400/60"><span className="eyebrow">{number} / UTILIDAD</span><h3 className="mt-6 text-lg font-semibold">{title}</h3><p className="muted mt-3 text-sm leading-6">{description}</p><span className="mt-6 block text-brand text-sm">Abrir herramienta →</span></Link>)}</div></section>
-    </main><footer className="flex flex-wrap justify-between gap-3 border-t border-[#223047] py-6 text-xs muted"><span>SMR HUB · Tu espacio de estudio</span><span>Hecho para aprender, organizado para avanzar.</span></footer>
+  return <div className="mx-auto flex min-h-svh max-w-5xl flex-col px-6">
+    <header className="flex items-center justify-between border-b border-[#223047] py-5"><Brand/><span className="eyebrow">1ºD SMR</span></header>
+    <main className="flex flex-1 flex-col items-center justify-center py-10 text-center">
+      <div className="relative mb-6 grid h-16 w-16 place-items-center rounded-2xl border border-blue-400/30 bg-blue-400/10 text-brand"><span className="pointer-events-none absolute -inset-10 rounded-full bg-blue-500/10 blur-3xl"/><Icon name="chip"/></div>
+      <p className="eyebrow mb-4">1ºD de Sistemas Microinformáticos y Redes</p>
+      <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl">El espacio de <span className="text-brand">1ºD SMR</span></h1>
+      <p className="muted mt-5 max-w-lg text-base leading-7">Tareas, exámenes, herramientas y recursos de clase en un solo sitio.</p>
+      <div className="mt-7 flex flex-wrap justify-center gap-3"><Link href="/login" className="primary">Iniciar sesión <Icon name="arrow"/></Link><Link href="/registro" className="secondary">Crear cuenta</Link></div>
+      <ul aria-label="Asignaturas de 1ºD SMR" className="mt-9 flex max-w-3xl flex-wrap justify-center gap-2">{subjects.map(subject => <li key={subject} className="rounded-lg border border-[#223047] bg-[#111b2b] px-3 py-2 text-xs text-[#91a3be]">{subject}</li>)}</ul>
+    </main>
+    <footer className="border-t border-[#223047] py-4 text-center text-xs muted">SMR HUB · 1ºD SMR</footer>
   </div>;
 }
