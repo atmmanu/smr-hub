@@ -19,4 +19,4 @@ export async function proxy(request: NextRequest) {
   return response;
 }
 
-export const config = { matcher: ["/dashboard/:path*", "/login", "/registro", "/auth/:path*"] };
+export const config = { matcher: ["/dashboard/:path*", "/login", "/registro", "/auth/:path*", "/api/moodle", "/api/moodle/:path*", "/api/calendar", "/api/notifications", "/api/notifications/:path*", "/api/preferences"] };

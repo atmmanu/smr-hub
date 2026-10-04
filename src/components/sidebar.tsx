@@ -6,7 +6,7 @@ import { Brand } from "./brand";
 import { Icon } from "./icon";
 import { browserClient } from "@/lib/supabase/client";
 
-const nav = [["", "Inicio", "home"], ["tareas", "Tareas", "tasks"], ["examenes", "Exámenes", "exams"], ["asignaturas", "Asignaturas", "chip"], ["herramientas", "Herramientas", "tools"], ["enlaces", "Enlaces", "links"], ["configuracion", "Configuración", "settings"]];
+const nav = [["", "Inicio", "home"], ["aula-virtual", "Aula Virtual", "chip"], ["calendario", "Calendario", "exams"], ["tareas", "Tareas", "tasks"], ["examenes", "Exámenes", "exams"], ["asignaturas", "Asignaturas", "chip"], ["herramientas", "Herramientas", "tools"], ["enlaces", "Enlaces", "links"], ["configuracion", "Configuración", "settings"]];
 export function Sidebar({ name }: { name: string }) {
   const pathname = usePathname(); const router = useRouter();
   const [busy, setBusy] = useState(false); const [error, setError] = useState("");

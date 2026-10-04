@@ -2,6 +2,12 @@
 
 El espacio de 1ºD de Sistemas Microinformáticos y Redes. Versión 0.2: tareas, exámenes, herramientas y recursos de clase en un solo sitio, con datos personales sincronizados en Supabase.
 
+## v0.3 — Fases A, B y C: Aula Virtual y calendario
+
+Conexión guiada, detección y mapeo de cursos, sincronización manual, estado personal y avisos internos. Fase C añade Inicio conectado a Moodle, campana y calendario mixto: Aula Virtual, eventos generales y personales. Sigue las guías de [Fase A](docs/moodle-phase-a.md), [Fase B](docs/moodle-phase-b.md) y [Fase C](docs/moodle-phase-c.md). No hay correo, cron ni recordatorios automáticos. No vuelvas a ejecutar el esquema inicial. El puerto local principal es 3000.
+
+Fase A añade `moodle_connections` y `moodle_course_mappings`, privadas y con token cifrado. Fase B añade `common_events`, `user_event_state`, `notifications` y seguimiento privado de sincronización. Fase C añade `class_calendar_events` y `personal_calendar_events` con permisos independientes. Las contraseñas no se guardan. Las tablas y RLS anteriores se conservan. El resto de esta guía describe las funciones de la base v0.2 que siguen disponibles.
+
 ## Qué incluye
 
 - Registro, confirmación por correo, inicio y cierre de sesión con Supabase Auth.
@@ -147,3 +153,16 @@ Verifica que `.env.local` no aparece en `git status` antes de preparar archivos.
 Se puede empezar con 0 € usando Supabase Free y Vercel Hobby dentro de sus cuotas. Hobby permite uso personal no comercial. Supabase puede pausar proyectos gratuitos con baja actividad durante siete días; se reactivan desde su panel. Revisa las condiciones actuales en https://vercel.com/docs/plans/hobby y https://supabase.com/pricing, además de las del proveedor SMTP. Mantén los planes gratuitos; no se incluyen compras, dominio propio ni servicios de pago automáticos.
 
 Los pasos de creación de cuentas, SQL y correo son para la primera instalación. Si ya tienes la versión 0.1 funcionando en producción, la 0.2 reutiliza el mismo proyecto Supabase y sus variables: no vuelvas a ejecutar el esquema. Revisa los cambios locales antes de hacer commit, push o desplegar.
+
+
+
+v0.2
+- Adaptación exclusiva a 1ºD SMR
+- Seis asignaturas fijas
+- Cambio de “En el horizonte” a “Lo que se viene”
+- Nueva calculadora IPv6
+- Portada pública simplificada
+
+## v0.3 — Fase D (preparada, sin activar)
+
+La [guía de Fase D](docs/moodle-phase-d.md) contiene la migración aditiva, el SQL seguro para asignar admin, las pruebas y los pasos de configuración. Supabase Cron llama al worker de Next.js cada 30 minutos; el instalador deja el job **inactivo**. Email y trabajos automáticos están desactivados por defecto. No volver a ejecutar el esquema inicial ni las migraciones A/B/C ya instaladas.

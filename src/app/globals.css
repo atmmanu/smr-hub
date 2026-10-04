@@ -24,3 +24,11 @@ textarea { min-height: 90px; resize: vertical; }
 .result-row { display: flex; justify-content: space-between; gap: 20px; padding: 12px 0; border-bottom: 1px solid #223047; }
 .result-row:last-child { border-bottom: 0; }
 @media (max-width: 640px) { .panel { padding: 20px; } }
+.notification-popover { position:absolute; top:52px; right:0; width:min(420px,100%); max-height:70vh; overflow-y:auto; z-index:30; box-shadow:0 20px 60px #0008; }
+.calendar-day { min-height:125px; }
+.calendar-entry { display:flex; gap:4px; width:100%; padding:5px; border-radius:5px; font-size:11px; text-align:left; margin-bottom:4px; }
+.calendar-moodle { background:#192f50; color:#b5d1ff; }
+.calendar-general { background:#18382f; color:#a4e5c7; }
+.calendar-personal { background:#33274a; color:#dbbaff; }
+.calendar-agenda { display:none; }
+@media(max-width:767px){ .calendar-month { display:none; } .calendar-agenda { display:block; } }
